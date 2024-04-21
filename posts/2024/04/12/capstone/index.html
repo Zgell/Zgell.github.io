@@ -1,0 +1,125 @@
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+      crossorigin="anonymous">
+    <style>
+      body {
+        margin: 50px;
+        color: #FFFFFF;
+        background-color: #16181A;
+      }
+    </style>
+
+    <title>Engineering Capstone - C3 SD File System and Screen File Editor</title>
+  </head>
+  <body>
+
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+      <div class="container-fluid">
+        <button
+          class="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarSupportedContent"
+          aria-controls="navbarSupportedContent"
+          aria-expanded="false"
+          aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+          <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <li class="nav-item">
+              <a
+                
+                class="nav-link"
+                
+                href="/">Home</a>
+            </li>
+            <li class="nav-item">
+              <a
+                
+                class="nav-link"
+                
+                href="/projects">Projects</a>
+            </li>
+            <li class="nav-item">
+              <a
+                
+                class="nav-link"
+                
+                href="/about">About</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+
+    <h1>Engineering Capstone - C3 SD File System and Screen File Editor</h1>
+
+    
+<p>
+  <strong>Started On:</strong>
+  January 1st 2024<br/>
+
+  <strong>Ended On:</strong>
+  April 12th 2024<br/>
+
+  <strong>Posted:
+  </strong>
+  April 12th 2024<br/>
+
+  <strong>Status:</strong>
+  Complete<br/>
+
+  <strong>Categories:</strong>
+  
+    <a href="/categories/embedded-systems">embedded-systems</a>
+    ,
+    
+  
+    <a href="/categories/c">c++</a>
+    
+  
+</p>
+
+<p>The following is a recap of my capstone project for my computer engineering degree.
+It will include many contents from the final report I wrote for the capstone as well as some of my own experiences over the 4 months we worked on it.</p>
+<h2>Intro</h2>
+<p>For my capstone, my group partnered with <a href="https://www.elevenengineering.com/">Eleven Engineering Inc</a>.
+Eleven Engineering Inc is a company based out of Edmonton, AB that focuses on semiconductors for wireless audio applications primarily.
+Notably, they have created the &quot;XInC2&quot; processor - a multithreaded RISC-based 16-bit processor designed for their wireless audio applications.
+At some point in time, Eleven Engineering collaborated with my university and gave them the rights to use their XInC2 CPU in electrical engineering capstone projects to &quot;give back&quot; to my university's community.
+This resulted in a project called the &quot;C3 board&quot; (standing for &quot;Credit Card Computer&quot;) - a single-board computer similar to a Raspberry Pi, but powered by the XInC2 CPU.
+Effectively, it's an all-Canadian-made SBC, which is pretty fascinating.</p>
+<p>However, as with any new computer system, the C3 board lacks a comprehensive software ecosystem.
+The board is currently (as of 2024) extremely barebones - it lacks an operating system, and only the low-level driver code needed for bare minimum functionality exists.
+If the goal of the C3 board is to be as versatile as similar boards like the Raspberry Pi, then it needs a solid software foundation in order to provide a wide range of functionality to users.
+This is where my capstone comes into the picture.</p>
+<p>My capstone group worked with Eleven Engineering as well as my university to develop two major components of the software ecosystem for the C3 board.
+The first of the two is an <strong>SD Card File System</strong>, which enables the board to interface with SD cards stored in the board's SD slot.
+This gives the board the ability to read from and write to files, which greatly enhances its functionality.</p>
+<p>The other project, and the one I had more of a direct hand in the development in, is called the <strong>&quot;Screen File Editor&quot;</strong>.
+It's a term coined by Eleven Engineering in the proposal documentation given to us that refers to a text-editor-like program that runs on the C3 board.
+Specifically, it is designed to run with hardware specifically designed for the C3 board to allow you to edit files on the board without an external computer, at least when used in conjunction with the SD File System.</p>
+<p>I should also mention that we weren't the only capstone group to work with the C3 board. There were two other groups to my knowledge, who worked on equally interesting projects such as a Python interpreter and some enhanced low-level routines.</p>
+<h2>Design</h2>
+<p>TODO</p>
+<h2>Conclusion</h2>
+<p>TODO</p>
+
+
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
+      integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
+      crossorigin="anonymous"></script>
+  </body>
+</html>
