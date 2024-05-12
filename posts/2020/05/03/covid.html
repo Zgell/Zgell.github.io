@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Zgell - E&ES</title>
+        <link rel="stylesheet" href="../../../../main.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="header">
+        <h1>Zgell's Website</h1>
+        <p>A collection of computer software and hardware projects I've made over the years.</p>
+        </div>
+
+        <div class="topnav">
+        <a href="../../../../index.html">Home</a>
+        <a href="../../../../next.html" style="float:right">What's Next?</a>
+        </div>
+
+        <div class="row">
+            <div class="left-meta">
+                <div class="card">
+                    <div class="meta-box">
+                        <h2><b>COVID-19 Real-Time Data Visualizer</b></h2>
+                        <p><b>Date Started: </b>May 2, 2020</p>
+                        <p><b>Date Finished: </b>May 3, 2020</p>
+                        <p><b>Date Published: </b>Apr 29, 2024</p>
+                        <p><b>Status: </b>Complete</p>
+                        <p>
+                            <b>Tags:</b>
+                            <a href="#">BeautifulSoup4</a>,
+                            <a href="#">Python</a>,
+                            <a href="#">Tkinter</a>
+                        </p>
+                        <p><b>Description:</b></p>
+                        <p>
+                            A GUI application I wrote over the early days of the COVID-19 pandemic to visualize COVID-19 cases in real time.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-meta">
+                <div class="card">
+                    <img src="thumbnail.png" class="thumbnail">
+                    <p>
+                        A screenshot of the application as of April 2024. 
+                        The data presented is likely not 100% accurate because many world governments aren't putting out data as frequently, if at all.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-body">
+            <h2>Intro</h2>
+            <p>
+                This is a very simple project. Like many others, I found myself stuck indoors during the first few months of the COVID-19 pandemic.
+                Given that I was in university, I wanted to look for a summer job.
+                Unfortunately the economy essentially collapsed that summer and there were no jobs available where I lived, so I had to find other ways to keep busy.
+                I decided to invest that time into myself by practicing programming.
+                This was the summer between my qualifying year of engineering and the first year of my specialization (second year overall), where I was hoping to get into computer engineering.
+                It made sense to keep sharp on the programming since I was going to need it a lot for my upcoming classes.
+            </p>
+            <p>
+                Around this time I wanted to learn how to use web scrapers for data collection purposes. I also wanted to learn Tkinter for Python. 
+                I decided to combine these two things into one project. I came up with the idea for a COVID-19 cases visualizer.
+                It was nice and simple, and incorporated everything I wanted to learn into one project.
+            </p>
+            <p>
+                The one requirement I had for this project was that it had to update in "real-ish time".
+                Obviously perfect real-time wasn't feasible, but if it had an update frequency of 5 seconds or faster I would be happy.
+                The biggest limiting factor on this speed is how long it would take to fetch data.
+            </p>
+
+            <h2>Data Source Selection</h2>
+            <p>
+                A big part of making this application work is choosing a good source of COVID-19 data.
+                I wanted a real-time source that would check the data frequently so I could watch the cases rise in real time from my desktop.
+                Thankfully around this time there were quite a few sources popping up all over the internet.
+                I ultimately chose <a href="https://www.worldometers.info/coronavirus/" target="_blank">Worldometer</a> as it was updating extremely frequently and gave good breakdowns of the stats.
+                I did try a few other sources that advertised "real-time" data but some of them ended up being difficult/inconsistent to traverse.
+            </p>
+            <p>
+                For the web scraper itself, I chose <a href="https://pypi.org/project/beautifulsoup4/" target="_blank">BeautifulSoup 4</a>. 
+                I had heard a bit about it before and it seemed like a relatively simple option to implement.
+                In particular, I liked how nicely it worked with "idiomatic Python", if that makes any sense.
+                For example, you traverse HTML documents similarly to how you would traverse a tree in Python.
+                I liked this because it made it really easy to do complex traversal and analysis of HTML scraped by BS4.
+            </p>
+            <p>
+                Once I got set up with BS4, the process was pretty simple honestly. 
+                I spent about 30 minutes getting the library up and running, and slowly working my way through Worldometer's HTML code.
+                Since Worldometer has a very simple website, it was easy to traverse and find where the COVID data was in the HTML.
+                From there, it was easy to create a routine that fetched the number of cases, resolved cases and deaths at any time.
+                This routine runs once every 4 seconds, resulting in what I described above as "real-ish time".
+            </p>
+
+            <h2>The Code</h2>
+            <p>
+                You can find the code for this project <a href="https://github.com/Zgell/COVID19WebScraper" target="_blank">on my GitHub</a>. 
+                It's honestly not anything to write home about given that I wrote it fresh out of first-year, but I still find it interesting nonetheless.
+            </p>
+        </div>
+        
+        <div class="footer">
+        <h2>Footer</h2>
+        </div>
+
+    </body>
+</html>
+
+

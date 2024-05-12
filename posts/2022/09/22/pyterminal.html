@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Zgell - PyTerminal</title>
+        <link rel="stylesheet" href="../../../../main.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="header">
+        <h1>Zgell's Website</h1>
+        <p>A collection of computer software and hardware projects I've made over the years.</p>
+        </div>
+
+        <div class="topnav">
+        <a href="../../../../index.html">Home</a>
+        <a href="../../../../next.html" style="float:right">What's Next?</a>
+        </div>
+
+        <div class="row">
+            <div class="left-meta">
+                <div class="card">
+                    <div class="meta-box">
+                        <h2><b>PyTerminal - A (Terrible) Python/Qt-Based Terminal Emulator</b></h2>
+                        <p><b>Date Started: </b>Some Day</p>
+                        <p><b>Date Finished: </b>Some Other Day</p>
+                        <p><b>Date Published: </b>Unknown</p>
+                        <p><b>Status: </b>Complete</p>
+                        <p>
+                            <b>Tags:</b>
+                            <a href="#">Python</a>,
+                            <a href="#">Qt</a>
+                        </p>
+                        <p><b>Description:</b></p>
+                        <p>
+                            PyTerminal is a basic terminal emulator I created using Qt and its Python bindings.
+                            This started because of a project I undertook at a previous job where I was working with a Qt application and wanted to integrate a terminal into it.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-meta">
+                <div class="card">
+                    <img src="thumbnail.png" class="thumbnail">
+                    <p>An early screenshot of the terminal after opening it. 
+                        It includes a tab for the Windows command prompt, as well as a plus sign for having multiple tabs.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-body">
+            <h2>PyTerminal</h2>
+            <p>
+                The idea for PyTerminal originated from a project I was working on at a previous job.
+                Without going into too much detail, I was writing a GUI application in Python using Qt.
+                I needed to create my own terminal widget for the application that could read data packets and print out their contents so they could be analyzed in real time.
+                At first this seemed like a really daunting task, but it turns out that in Qt it's much easier than you'd think.
+                One nice thing about Qt is the ability to create subclasses of the existing widgets and make custom variants for specific tasks.
+                I made a custom variant of a textbox widget that was coloured to look like a terminal, removed all of the user input functionality,
+                and could be updated using custom external signals. It was a little hacky but it turned out well.
+            </p>
+            <p>
+                Fast forward a few months and I had been obsessed with the idea of creating the "perfect terminal" for programming.
+                Obviously many have tried, as there are lots of free terminals out there on the internet to download and use.
+                Given I had no experience in writing terminals, I wasn't expecting that I would be the one to write the best one.
+                I decided that it might be interesting to learn about how to actually make a really basic one.
+            </p>
+            <p>
+                After some preliminary research I found that there were many techniques one could use to make a terminal.
+                Some of the fancier implementations I had seen used OpenGL/some other graphics library and rendered it through the GPU for better performance and more varied visuals.
+                I wanted to pick something simple since I only had limited GUI programming experience, and then I remembered that project I did in Qt for my previous job.
+                It <i>kind of</i> worked, and I bet that with some tweaks you could make that into a feasible terminal.
+            </p>
+            <p>
+                It turns out that buildign the basic prototype was really easy and only took about 100 lines of code.
+                Since I was building a terminal emulator and not a shell, I didn't have to define any of the commands myself.
+                I was basically just building a windowed application that acted as a middleman between the user and the shell program (ie. CMD on Windows).
+                Qt has built-in routines for running other programs as sub-routines within it and integrating it into the Qt multithreading system.
+                All I needed to do to make a functioning prototype was to integrate a shell (such as CMD.exe from Windows) into this process and feed its output through a window.
+                Turns out that this process is pretty simple and didn't really require a ton of troubleshooting either. It just sort of worked!
+            </p>
+            <p>This left me with a basic Qt application that looked like this:</p>
+            <ul>
+                <li>A basic window containing only one widget: a custom subclass of the default text box</li>
+                <li>This custom text box was stylized to look like a terminal, and was connected to the subprocess that ran <code>cmd.exe</code></li>
+                <li>Since the subprocess also handles input, I didn't need to modify much in the terminal to handle input either.</li>
+            </ul>
+        </div>
+        
+        <div class="footer">
+        <h2>Footer</h2>
+        </div>
+
+    </body>
+</html>
+
+

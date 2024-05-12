@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Zgell - Dialogue</title>
+        <link rel="stylesheet" href="../../../../main.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="header">
+        <h1>Zgell's Website</h1>
+        <p>A collection of computer software and hardware projects I've made over the years.</p>
+        </div>
+
+        <div class="topnav">
+        <a href="../../../../index.html">Home</a>
+        <a href="../../../../next.html" style="float:right">What's Next?</a>
+        </div>
+
+        <div class="row">
+            <div class="left-meta">
+                <div class="card">
+                    <div class="meta-box">
+                        <h2><b>Node-based Dialogue System</b></h2>
+                        <p><b>Date Started: </b>Jul 26, 2022</p>
+                        <p><b>Date Finished: </b>Jul 27, 2022</p>
+                        <p><b>Date Published: </b>Unknown</p>
+                        <p><b>Status: </b>Somewhat Complete</p>
+                        <p>
+                            <b>Tags:</b>
+                            <a href="#">Rust</a>
+                        </p>
+                        <p><b>Description:</b></p>
+                        <p>
+                            A dynamic system for RPG games that expresses dialogue as nodes. Allows for a wide range of complex behaviors.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-meta">
+                <div class="card">
+                    <img src="thumbnail.png" class="thumbnail">
+                    <p>
+                        A diagram demonstrating an example of RPG dialogue that this node-based system can express.
+                        Existing tree-based solutions cannot efficiently represent dialogue of this structure, for reasons discussed in this article.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-body">
+            <h2>Intro</h2>
+            <p>
+                Something I'm guilty of is being an "idea guy" when it comes to video game development.
+                I've played video games all throughout my childhood and the idea of making my own always seemed so cool.
+                I have easily come up with hundreds of game ideas over the years but the vast majority never get made.
+                However, this also means that I get smaller ideas that fit inside of games but aren't a game themselves.
+                Ideas for cool features, mechanics and systems that I get out of the blue, just like I do with game ideas too.
+                This page you're reading right now is one of the rare exceptions to the rule above: it's a system that I actually made.
+            </p>
+            <p>
+                I had been thinking a lot about RPGs at the time, and particularly, their dialogue. 
+                Typically when you interact with an NPC in an RPG, there's some kind of pre-determined sequence of things said.
+                Sometimes the player is offered options that can change the dialogue, but generally it is not that interesting.
+                I was thinking a bit about the underlying mechanisms behind dialogue systems like this as well.
+                For simple NPC dialogue, something as simple as an array of strings would suffice.
+                For more complex interactions, they can be described as a tree of strings instead, where at any point the user has to make a decision, that controls the direction the tree traverses.
+                Each branch in the tree represents a different possible outcome of the conversation.
+            </p>
+            <p>
+                Where this project comes into the picture is when I asked myself the following question:
+            </p>
+            <p><b>How can you make dialogue systems more interesting/dynamic?</b></p>
+            <p>
+                A good first step towards that would be NPC dialogue that feels less repetitive. 
+                If you talk to the same NPC in an RPG over and over again, generally they give the same dialogue sequence each time.
+                There's very little reason for players to talk to NPCs other than seeing if they either have something useful to say, or something to give the player.
+                If you could make conversations vary slightly each time, it might make it more interesting, and possibly even more rewarding, for players to keep talking to NPCs they find interesting.
+                In essence, I was looking to transform the NPC experience, even slightly, to elevate it above what has become commonplace in the gaming scene.
+                To do this, I realized that dialogue needed a structural rework of how dialogue works under the hood.
+            </p>
+
+            <h2>Trees vs. Graphs</h2>
+            <div class="row">
+                <div class="article-left">
+                    <img src="thumbnail.png">
+                    <p class="subtext">
+                        An example graph that could be described using my node-based dialogue system, but not with traditional linear/tree-based systems.
+                        This graph includes a node that loops back onto another node (Node 5 -> Node 2) which could not be included in a regular tree.
+                    </p>
+                </div>
+                <div class="article-right">
+                    <p>
+                        The idea I came up with, and what I eventually settled on, was a "node-based system" that used a directed graph under the hood (as opposed to an array or a tree).
+                        These nodes and their connections mirror vertices and edges for graphs, meaning that a lot of the ideas from graph theory could now apply to dialogue.
+                        This idea was very attractive to me for a few reasons:
+                    </p>
+                    <ol>
+                        <li>Simple dialogue was still simple to express: just create a directed graph where each node is connected sequentially.</li>
+                        <li>Decisions were also easy to express: player decisions could be expressed by a node that has more than one outcome, and the "decision" directs which way to traverse.</li>
+                        <li>It gives dialogue a certain "non-linear" quality that trees cannot express: it is safe for dialogue to loop back on itself because a graph doesn't have an intrinsic "direction" to it the way a tree does.</li>
+                    </ol>
+                    <p>
+                        This node-based system essentially makes dialogue into a <b>finite state machine</b>, which opens up a lot of possibilities for expressing complex dialogue options.
+                        In essence, I had conceived a more generalized version of the dialogue trees commonly used in video games.
+                    </p>
+                </div>
+            </div>
+    
+            <p>There are some downsides to consider as well however:</p>
+            <ul>
+                <li>Less efficient with memory</li>
+                <li>Can be tricky to construct if there are cyclical dependencies</li>
+                <li>Have to be careful when constructing dialogue graphs, as dialogue can get stuck in "infinite loops"</li>
+            </ul>
+
+            <h2>Structure</h2>
+            <p>
+                To design a system that utilizes a graph in the backend, there were a couple of things I had to decide on.
+                The first was the kinds of nodes I needed to include in the structure in order to provide all the types of behavior I was looking for.
+                A trivial <b>dialogue node</b> (DNode), that printed a single segment of dialogue and then moved to the next node, was the simplest building block of dialogue.
+                However, more complicated nodes were required in order to express decisions. 
+                A trivial node would need a way to decide which path to take, and so I created a second type of node to address this: a <b>question node</b> (QNode).
+                Question nodes can choose a path based on user-specified criteria, or internal criteria (ie. the value of a variable).
+                Since this was for the context of a video game as well, it makes sense that dialogue would affect other world events in the game sometimes depending on the NPC being talked to.
+                So I invented a third type of node: the <b>event node</b> (ENode). 
+                Using an event-driven architecture in tandem with the dialogue system would allow for event nodes to register an event that has an effect elsewhere in the game.
+                Between these three nodes, I believe that the majority of dialogue can be expressed.
+            </p>
+            <p>
+                A fourth node idea I came up with, but never implemented, was something I call the <b>exit node</b> (XNode).
+                The problem with the system of the 3 nodes defined above is that while they can express all kinds of dialogue, and even more due to its non-linearity, it lacks the "dynamic" element discussed in the beginning.
+                My vision was for conversations with NPCs to feel different each time, and this requires NPC dialogue to have some kind of "memory" element so that Conversation #1 can behave differently from Conversation #2, Conversation #3 and so on.
+                My hope is that the "exit node" can provide that memory element. The way it works is that when an exit node is reached, some dialogue is played (superset of DNode) and then ends the conversation.
+                This has a few benefits:
+            </p>
+            <ol>
+                <li>
+                    It makes the termination point of dialogue conversations explicit. 
+                    Previously the way it works is that when a DNode/QNode/ENode didn't point to another node, it was assumed that the conversation would just end.
+                    While this still can be true, having an explicit exit point is cleaner and safer.
+                </li>
+                <li>
+                    Even more important than the point above, it means that if the dialogue graph is persistent (which I intend for it to be), then the dialogue can pick up on the node that the exit node points to,
+                    meaning that <b>the next conversation begins in a different state than the first one</b>. 
+                    This gives that dynamic behavior I described above because it opens up the possibility for multiple different conversations to occur without explicitly coding an NPC to have X amount of conversational dialogue structures.
+                    It also means that, unlike the traditional methods, Conversations #1, #2 and so on are all related to each other since they are different "walks" (re: graph theory) of the same graph.
+                    There can be overlap between the conversations without duplicating the code. Decisions made in Conversation #1 can impact the way that Conversation #2 flows.
+                </li>
+            </ol>
+
+            <h2>Conclusion</h2>
+            <p>
+                This project is ultimately pretty small as it is just a proof-of-concept of a subsystem for a bigger project.
+                However, I think that this idea has some merit and I hope to see it used in the future.
+                I know that if I ever find myself making an RPG game, I want to try implementing such a system to see if NPCs with more depth can be created.
+            </p>
+            <p>
+                I also think there's a lot of potential for graph-based dialogue systems like the one proposed in this article.
+                I mentioned it earlier that since it takes on the structure of a graph, many ideas from the field of graph theory could apply to it.
+                I am not a mathematician, and I am also not an expert in graph theory, but I do know that when I did cover it in university, it felt like there was quite a substantial amount of ideas pertaining to graphs.
+                A lot of these ideas apply directly to this format, and this could lead to improved systems that use this graph structure in the future.
+            </p>
+        </div>
+        
+        <div class="footer">
+        <h2>Footer</h2>
+        </div>
+
+    </body>
+</html>
+
+

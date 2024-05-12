@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Zgell - Schedule Generator</title>
+        <link rel="stylesheet" href="../../../../main.css">
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Jersey+15&family=Sometype+Mono:ital,wght@0,400..700;1,400..700&display=swap" rel="stylesheet">
+    </head>
+    <body>
+        <div class="header">
+        <h1>Zgell's Website</h1>
+        <p>A collection of computer software and hardware projects I've made over the years.</p>
+        </div>
+
+        <div class="topnav">
+        <a href="../../../../index.html">Home</a>
+        <a href="../../../../next.html" style="float:right">What's Next?</a>
+        </div>
+
+        <div class="row">
+            <div class="left-meta">
+                <div class="card">
+                    <div class="meta-box">
+                        <h2><b>Stream Schedule Generator</b></h2>
+                        <p><b>Date Started: </b>Jul 31, 2022</p>
+                        <p><b>Date Finished: </b>Aug 2, 2022</p>
+                        <p><b>Date Published: </b>Unknown</p>
+                        <p><b>Status: </b>Complete</p>
+                        <p>
+                            <b>Tags:</b>
+                            <a href="#">API</a>,
+                            <a href="#">Python</a>,
+                        </p>
+                        <p><b>Description:</b></p>
+                        <p>
+                            A tool I wrote for a Twitch streamer friend who wanted to automate the process of making schedules for his audience.
+                            He is a "variety streamer" (means he plays many video games on Twitch, not just one game/category) who wanted a way to
+                            keep his audience in the loop for what to expect each week. 
+                            Originally he was creating these infographics by hand, taking him about 20 minutes each week to do it.
+                            So I wrote a program that let him do it in 20 seconds instead.
+                        </p>
+                    </div>
+                </div>
+            </div>
+            <div class="right-meta">
+                <div class="card">
+                    <img src="thumbnail.png" class="thumbnail">
+                    <p>An example of the weekly schedule infographic produced by my application. Taken from August 2022.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="article-body">
+            <h2>Intro</h2>
+            <p>
+                As hinted at above, this project started with a very real problem a friend of mine was having.
+                He streams frequently on Twitch, where he plays a variety of video games to entertain his audience.
+                He wanted to get in the habit of announcing what he was playing in advance to keep his audience informed.
+                To do this, he was putting together these nice infographics that showed the stream schedule for the week.
+                However, these infographics were time-consuming to put together: 
+                they take about 20 minutes in Photoshop to combine a premade template with relevant game box art, text, effects, and so on.
+                While it was only 20 minutes a week, this time does add up quickly.
+                We were talking about this problem and I realized that this sort of task is something that would work really well if automated.
+                I offered to take a crack at the problem of automating the process, and this project is what spawned of it.
+            </p>
+            <p>
+                After some discussion, I realized that the key requirements for the application were:
+            </p>
+            <ul>
+                <li>Had to be extremely simple to use - My friend is tech-savvy but if the whole point is convenience, it should be as straightforward as possible.</li>
+                <li>Installation was simple (just run an .exe file and go) - Same reasoning as above</li>
+                <li>Had to work for any game - I couldn't include a pre-selected set of box art images with the application because he plays a new game basically every week.</li>
+                <li>Also had to support a "no game" option - Some streams aren't even games at all! This tool had to be flexible enough to accommodate that.</li>
+            </ul>
+            <p>
+                In spite of the requirement for portability, I found that Python was one of the most suitable choices for a program like this.
+                It makes extensive use of external libraries to do specific steps of the processing of the schedule, such as box art retrieval and image generation.
+                Although, it turns out that this lack of portability from Python (remember, we don't want you to have to install the Python interpreter to use it) was a non-issue, as discussed below.
+            </p>
+
+            <h2>Image Transformation</h2>
+            <p>
+                Before we talk about how the application retrieves game box art, let's talk about how it would actually process that box art.
+                As hinted at above, this is an area where Python is a beneficial choice for the application.
+                Python has access to libraries such as <code>Pillow</code> which are great for image processing.
+                In this program, that's the library I used.
+            </p>
+            <p>
+                One of the main components of the software is a class I called the <code>ImageProcessor</code>.
+                It is responsible for taking in all box art images, applying transformations and stitching all the images together.
+                Here's a quick rundown of the process it applies:
+            </p>
+            <ol>
+                <li>Loads all the box arts and the template to be used.</li>
+                <li>Applies gradients to each box art to darken them slightly.</li>
+                <li>Adds text to each box art image (either name of the game or a custom label).</li>
+                <li>Superimpose the box art images onto the template image at the right locations to combine them all into one.</li>
+            </ol>
+
+            <h2>IGDB API</h2>
+            <p>
+                The biggest challenge I noticed in the requirements is game box art. How is the application going to get box art for a game if I don't know in advance what he's going to play?
+                I can't get him to find and download the box art because that defeats the point of the application - it's supposed to be fast.
+                Thankfully, there was a solution - <b>IGDB</b>.
+            </p>
+            <p>
+                IGDB is an online, public database for Twitch video game data. It includes data for every game category possible on Twitch, and that includes box art of video games.
+                After a bit of research I found out that IGDB has an API, and after a couple hours of experimenting I managed to get access to it working.
+                My plan was to use IGDB to serve my application the box art images when it needs them during schedule construction.
+            </p>
+            <p>
+                For games with no box art, or for non-game streams, I put together a custom image that the application could use. 
+                It fit the same size as the box art images and was a generic filler image that clearly indicated that it was a Twitch stream.
+            </p>
+            <p>
+                One issue I ran into was getting the API requests formatted correctly. 
+                For whatever reason I could not figure out what fields were needed (the documentation for this wasn't great) and could not get it working manually.
+                Thankfully, I found a Python library that served as a wrapper for IGDB API calls, which saved me a lot of trouble.
+                However, this posed an issue: it locks me in to using Python for the application.
+                I am a really big fan of Python and normally this is not an issue, but the usage of Python conflicted with the requirement for "easy installation".
+                Since Python is not a compiled language, if I were to share a Python program with my friend, it would require him to download Python and do all this technical stuff to get the dependencies configured.
+                This was a problem. How was I going to make the application portable if it uses Python? Turns out the answer was simpler than I thought.
+            </p>
+
+            <h2>Py-2-EXE</h2>
+            <p>
+                As a Python developer, and as someone who frequently explores Python libraries, I have encountered libraries such as <code>Py2EXE</code>, which claim to "compile" Python code into a portable EXE file.
+                I've been fascinated by the idea, but from what I understand the usage of these tools is very limited. 
+                They have many incompatibilities with external Python libraries, and are generally regarded as "unreliable" as far as whether or not your application will compile.
+                They work by bundling your Python code with a copy of the Python interpreter all together into an EXE file so that the Python code has everything it needs to run, in a "portable" environment.
+            </p>
+            <p>
+                Given that the application I had made was pretty simple (only relying on a couple of libraries) I decided to give it a shot and see if it would work. 
+                To my surprise, it worked! My application didn't cause problems during compilation, and the resulting EXE file ran correctly and was able to assemble schedules!
+            </p>
+            <p>
+                I did a pilot run with my friend to see if it would work, and after sorting out some issues regarding the API key and how to share it, I managed to get a copy that could run on his computer.
+                Success! We had a program that could automatically assemble schedules for him.
+            </p>
+
+            <h2>The Result</h2>
+            <p>
+                The final program is a terminal application (run through an EXE) that prompts the user for the titles of three games to stream: one for Monday, Wednesday and Friday respectively.
+                For each game, it uses the IGDB API to query the database, find the closest match and download a copy of the box art locally.
+                The user could also enter the prompt "???" any time they wanted to specify no game for a particular day, in which case the program would fall back on the default box art image I made.
+                Once the three prompts were entered, the program combined the template image with the box art, overlayed some text and shadowing effects and produced a schedule image that could be used.
+                From timing the application, it took about 20 seconds to do everything, but that mostly comes from the time it takes for the user to enter in the prompts and download the box art, not from the computation.
+                The image processing was done in under a second usually.
+            </p>
+            <div class="row">
+                <div class="article-left">
+                    <img src="result.png">
+                </div>
+                <div class="article-right">
+                    <p>
+                        Here's an example of the image that the program produces. 
+                        The purple frame around the box art is a template that I created from some of the old schedules made manually by my friend.
+                        I cut out the sections in the middle where the box art would go and made them transparent so they could be overlayed easily.
+                    </p>
+                    <p>
+                        Fun fact about this image: this is the very first schedule generated by the program to be used for his streams!
+                    </p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="article-left">
+                    <img src="result2.png">
+                </div>
+                <div class="article-right">
+                    <p>
+                        Here's another example of a real schedule produced by the application that went on to be used for his streams.
+                        This one showcases the "default game box art" image I produced on Friday.
+                        The application lets you label each game selection independently of what the game is actually called, so the Friday stream was titled "Community Day".
+                    </p>
+                </div>
+            </div>
+            <p>
+                Overall, I consider the project to be a massive success. 
+                The program works 100% fine, and it made the life of my friend a lot easier.
+            </p>
+            <p>
+                <a href="https://github.com/Zgell/stream-schedule-gen" target="_blank">You can find the source code for this project, as well as installation instructions, on my GitHub.</a>
+                I'll admit the program isn't 100% flexible: after all, I was building it for a very specific use case.
+                If anyone has any interest in re-using this for their own streams, feel free to make a fork of it and modify it however you see fit.
+            </p>
+        </div>
+        
+        <div class="footer">
+        <h2>Footer</h2>
+        </div>
+
+    </body>
+</html>
+
+

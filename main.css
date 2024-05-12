@@ -1,0 +1,284 @@
+* {
+  box-sizing: border-box;
+}
+
+/* Defining the color scheme */
+:root {
+    --bg-color: #0A090C;
+    --bg-light: #131217;
+    --bg-lighter: #1D1A23;
+    --bg-lightest: #27232F;
+    --text-color: #F0EDEE;
+    --highlight-high: #90DDF0;
+    --highlight-mid: #2C666E;
+    --highlight-low: #07393C;
+}
+
+body {
+  font-family: "Sometype Mono", "Courier New", monospace;
+  color: var(--text-color);
+  line-height: 1.5;
+  padding-left: 128px;
+  padding-right: 128px;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  background: var(--bg-color);
+}
+
+ul {
+  color: var(--text-color);
+}
+
+a {
+  color: var(--highlight-high);
+}
+
+/* Header/Blog Title */
+.header {
+  font-family: "Jersey 15", "Courier New", monospace;
+  font-weight: 400;
+  font-style: normal;
+  padding: 30px;
+  text-align: center;
+  background: var(--bg-color);
+}
+
+.header h1 {
+  font-size: 50px;
+  color: var(--text-color);
+}
+.header p {
+  font-size: 24px;
+  color: var(--text-color);
+}
+
+/* Style the top navigation bar */
+.topnav {
+  overflow: hidden;
+  background-color: var(--bg-light);
+}
+
+/* Style the topnav links */
+.topnav a {
+  float: left;
+  display: block;
+  color: var(--text-color);
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+}
+
+/* Change color on hover */
+.topnav a:hover {
+  background-color: var(--text-color);
+  color: var(--bg-light);
+}
+
+/* Main Structure */
+/* Left column */
+.leftcolumn {   
+  float: left;
+  width: 75%;
+}
+/* Right column */
+.rightcolumn {
+  float: left;
+  width: 25%;
+  background-color: var(--bg-color);
+  padding-left: 20px;
+}
+
+/* Card Layout */
+.cardleft {
+  float: left;
+  width: 33%;
+  padding-top: 16px;
+  padding-bottom: 16px;
+  overflow: clip;
+}
+.cardright {
+  float: left;
+  width: 67%;
+  background-color: var(--bg-light);
+  padding-left: 20px;
+}
+
+
+/* Article Thumbnail (seen on projects list) */
+.post-thumbnail {
+  display: block;
+  width: 100%;
+  max-height: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+
+/* Fake image */
+.fakeimg {
+  background-color: var(--bg-lightest);
+  width: 100%;
+  padding: 20px;
+}
+
+.card-link {
+    text-decoration: none;
+    color: black;
+}
+
+/* Add a card effect for articles */
+.card {
+    font-family: "Sometype Mono", "Courier New", monospace;
+    background-color: var(--bg-light);
+    padding: 20px;
+    margin-top: 20px;
+    border-radius: 10px;
+}
+.card h2 {
+  color: var(--highlight-high);
+}
+.card h3 {
+  color: var(--highlight-high);
+}
+.card h5 {
+  color: var(--text-color);
+}
+.card img {
+  width: 100%;
+}
+.card p {
+  color: var(--text-color);
+}
+.fakeimg {
+  color: var(--text-color);
+}
+
+/* Clear floats after the columns */
+.row::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Popular Posts */
+.popular-thumbnail {
+  position: relative;
+  width: 100%;
+  height: 100px;
+}
+.popular-thumbnail img {
+  background-color: var(--bg-lightest);
+  filter: brightness(15%);
+  height: 100%;
+  width: 100%;
+}
+.popular-thumbnail p {
+  color: var(--text-color);
+  font-weight: bold;
+  position: absolute;
+  top: 35%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+/* Footer */
+.footer {
+  padding: 20px;
+  text-align: center;
+  background: var(--bg-color);
+  color: var(--text-color);
+  margin-top: 20px;
+}
+.footer h2 {
+  color: rgba(255, 255, 255, 0);
+}
+
+
+/* Article - Top Data */
+.left-meta {
+  float: left;
+  width: 33%;
+}
+.right-meta {
+  float: left;
+  width: 67%;
+  background-color: var(--bg-color);
+  padding-left: 20px;
+}
+.meta-box {
+  outline-style: dashed;
+  outline-color: var(--highlight-high);
+  padding-top: 8px;
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-bottom: 8px;
+}
+/* Thumbnail Image (found in articles) */
+.thumbnail {
+  height: 600px;
+  width: 100%;
+}
+
+/* Article Body */
+.article-body code {
+  color: var(--highlight-mid);
+  line-height: 1.5;
+}
+.article-body img {
+  display: block;
+  width: 80%;
+  padding: 20px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.article-body table {
+  margin-left: auto;
+  margin-right: auto;
+}
+.article-body td {
+  padding-left: 16px;
+  padding-right: 16px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+/* Article Columns - For two-column data */
+.article-left {
+  float: left;
+  width: 50%;
+}
+.article-right {
+  float: left;
+  width: 50%;
+  background-color: var(--bg-color);
+  padding-left: 20px;
+}
+.subtext {
+  font-size: 12px;
+  color: var(--highlight-mid);
+}
+
+/* Responsive layout - when the screen is less than 800px wide, make the two columns stack on top of each other instead of next to each other */
+@media screen and (max-width: 1200px) {
+    body {
+        padding-left: 32px;
+        padding-right: 32px;
+    }
+    .leftcolumn, .rightcolumn {   
+        width: 100%;
+        padding: 0;
+    }
+}
+
+/* Responsive layout - when the screen is less than 400px wide, make the navigation links stack on top of each other instead of next to each other */
+@media screen and (max-width: 600px) {
+    body {
+        padding-left: 16px;
+        padding-right: 16px;
+        padding-top: 8px;
+        padding-bottom: 8px;
+    }
+    .topnav a {
+        float: none;
+        width: 100%;
+    }
+}
